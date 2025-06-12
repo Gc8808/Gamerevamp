@@ -3,445 +3,96 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Adityagadre.com - The Fun Zone</title>
+<title>Adityagadre.com</title>
 <link rel="icon" type="image/png" href="unnamed (2).jpg" />
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  /* existing styles kept as-is... */
 
-  @keyframes backgroundShift {
-    0% { background-color: rgba(255, 235, 238, 0.6); }
-    25% { background-color: rgba(255, 243, 224, 0.6); }
-    50% { background-color: rgba(232, 245, 233, 0.6); }
-    75% { background-color: rgba(227, 242, 253, 0.6); }
-    100% { background-color: rgba(255, 235, 238, 0.6); }
-  }
-
-  body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    animation: backgroundShift 20s ease infinite;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem;
-    color: #333;
-    scroll-behavior: smooth;
-    background-image: url('unnamed(2)-Picsart-AiImageEnhancer (1).jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  @keyframes textColorShift {
-    0% { color: #ff5722; }
-    50% { color: #4caf50; }
-    100% { color: #ff5722; }
-  }
-
-  header {
-    width: 100%;
-    max-width: 900px;
-    text-align: center;
-    margin-bottom: 3rem;
-    user-select: none;
-  }
-
-  header h1 {
-    font-size: 3.5rem;
-    cursor: pointer;
-    animation: textColorShift 8s ease infinite;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    font-weight: 900;
-    margin-bottom: 0.3rem;
-  }
-
-  img.profile {
-    border-radius: 50%;
-    border: 6px dashed;
-    border-image: linear-gradient(45deg, #ff5722, #4caf50, #2196f3) 1;
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease;
-  }
-
-  img.profile:hover {
-    transform: rotate(15deg) scale(1.1);
-  }
-
-  main {
-    width: 100%;
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-    padding: 3rem 3.5rem;
-    margin-bottom: 3rem;
-  }
-
-  main section {
-    margin-bottom: 3rem;
-  }
-
-  main section:last-child {
-    margin-bottom: 0;
-  }
-
-  h2.section-title {
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    border-bottom: 3px dotted;
-    animation: textColorShift 10s ease infinite;
-    padding-bottom: 0.3rem;
-  }
-
-  p, li {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: #444;
-  }
-
-  strong {
-    color: #ff5722;
-  }
-
-  ul.project-list {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  ul.project-list li {
-    background: #f9f9f9;
-    margin-bottom: 1rem;
-    padding: 1rem 1.2rem;
-    border-left: 6px dotted;
-    border-image: linear-gradient(45deg, #ff5722, #4caf50, #2196f3) 1;
-    border-radius: 8px;
-    cursor: default;
-    transition: background-color 0.3s ease;
-  }
-
-  ul.project-list li:hover {
-    background-color: #fff0f5;
-  }
-
-  button.fun-fact-btn, button.submit-btn {
-    background: linear-gradient(45deg, #ff5722, #4caf50, #2196f3);
-    border: none;
+  /* Dark mode toggle style */
+  .toggle-mode {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #333, #777);
     color: white;
-    padding: 14px 30px;
-    font-size: 1.1rem;
-    border-radius: 30px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
-    transition: filter 0.3s ease, transform 0.2s ease;
-    margin-top: 1.5rem;
-  }
-
-  button.fun-fact-btn:hover, button.submit-btn:hover {
-    filter: brightness(1.25);
-    transform: translateY(-6px) rotate(3deg);
-  }
-
-  #funFact {
-    margin-top: 1.5rem;
+    z-index: 1000;
     font-weight: 700;
-    font-size: 1.2rem;
-    min-height: 2rem;
-    color: #ff5722;
-    transition: opacity 0.4s ease;
   }
 
-  .testimonial {
-    background: #fff3e0;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 6px 18px rgba(255, 152, 0, 0.2);
-    font-style: italic;
-    position: relative;
-    color: #444;
+  body.dark-mode {
+    background-color: #121212;
+    color: #eee;
+    background-image: none;
   }
 
-  .testimonial::before {
-    content: "“";
-    font-size: 4rem;
-    color: #ff5722;
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    font-weight: 900;
-    opacity: 0.3;
+  body.dark-mode main,
+  body.dark-mode #game {
+    background: rgba(33, 33, 33, 0.95);
   }
 
-  .testimonial p {
-    margin-bottom: 0.7rem;
-    font-style: normal;
+  body.dark-mode .section-title,
+  body.dark-mode .author,
+  body.dark-mode #funFact,
+  body.dark-mode #scoreboard,
+  body.dark-mode #timer {
+    color: #90caf9;
   }
 
-  .testimonial .author {
-    font-weight: 700;
-    color: #ff5722;
-    text-align: right;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    max-width: 450px;
-    margin: 0 auto;
-  }
-
-  label {
+  /* Joke output */
+  #aiJoke {
+    margin-top: 1.2rem;
     font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: #555;
-  }
-
-  input, textarea {
-    padding: 0.7rem 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    border: 1.5px solid #ccc;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    resize: vertical;
-  }
-
-  input:focus, textarea:focus {
-    border-color: #ff5722;
-    outline: none;
-  }
-
-  footer {
+    font-size: 1.1rem;
+    color: #4caf50;
+    min-height: 2rem;
     text-align: center;
-    color: #777;
-    font-size: 0.9rem;
-    margin-top: auto;
-    user-select: none;
-    padding: 1.5rem 1rem;
-  }
-
-  #game {
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-    text-align: center;
-  }
-
-  #game h2 {
-    animation: textColorShift 10s ease infinite;
-    margin-bottom: 1rem;
-  }
-
-  #circle {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(45deg, #ff5722, #4caf50, #2196f3);
-    border-radius: 50%;
-    margin: 0 auto 1.5rem auto;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    transition: transform 0.15s ease;
-    position: relative;
-  }
-
-  #circle:active {
-    transform: scale(0.9) rotate(15deg);
-  }
-
-  #scoreboard, #timer {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    color: #ff5722;
-  }
-
-  @media (max-width: 700px) {
-    main {
-      padding: 2rem 1.5rem;
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      letter-spacing: 3px;
-    }
-
-    img.profile {
-      width: 160px;
-      height: 160px;
-    }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <h1 id="india">ADITYAGADRE.COM</h1>
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/2560px-Flag_of_India.svg.png"
-    alt="India flag"
-    class="profile"
-    title="Flag of India — Because 🇮🇳 rules!"
-  />
-</header>
+<!-- Dark Mode Toggle Button -->
+<button class="toggle-mode" id="toggleMode">Toggle Dark Mode</button>
 
-<main>
-  <section>
-    <h2 class="section-title">About Me (Not Boring, Promise!)</h2>
-    <p>
-      Hey! I’m <strong>Aditya Gadre</strong>, an Indian guy who uses ChatGPT so much, I sometimes forget if I’m the one working or the AI! When I’m not chatting with my digital bestie, I’m coding, dreaming of bugs (the good kind), and trying to convince my computer to behave.
-    </p>
-  </section>
+<!-- [keep your existing header and main sections...] -->
 
-  <section>
-    <h2 class="section-title">Why I <em>Really</em> Love ChatGPT</h2>
-    <p>
-      ChatGPT is like my super chill coworker who never complains and knows pretty much everything — from writing code, jokes, love letters (shh!), to explaining quantum physics in a way even I can pretend to understand. Basically, it’s my secret weapon to pretend I’m a genius.
-    </p>
-  </section>
-
-  <section>
-    <h2 class="section-title">Projects & Shenanigans</h2>
-    <ul class="project-list">
-      <li>Making AI apps that do the heavy lifting while I drink chai ☕</li>
-      <li>Designing websites that dance with colors (and sometimes sing... in my head)</li>
-      <li>Building silly games to prove I’m not all work, no play</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2 class="section-title">Fun Fact (Because Serious is Overrated)</h2>
-    <button class="fun-fact-btn" id="funFactBtn">Hit me with a random AI fact!</button>
-    <div id="funFact"></div>
-  </section>
-
-  <section>
-    <h2 class="section-title">Testimonials (Or Just Nice Things People Say)</h2>
-    <div class="testimonial">
-      <p>"Aditya codes so well, I suspect he’s got ChatGPT on speed dial."</p>
-      <div class="author">- Definitely Not a Robot 🤖</div>
-    </div>
-    <div class="testimonial">
-      <p>"If AI was a Bollywood star, Aditya would be the director."</p>
-      <div class="author">- AI Fan Club President</div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title">Contact Me (No Spam, Please!)</h2>
-    <form id="contactForm">
-      <label for="name">Your Fancy Name:</label>
-      <input id="name" name="name" type="text" required placeholder="Like ‘Awesome Human’" />
-      <label for="email">Your Email (I promise no spam):</label>
-      <input id="email" name="email" type="email" required placeholder="example@coolmail.com" />
-      <label for="message">Your Brilliant Message:</label>
-      <textarea id="message" name="message" rows="5" required placeholder="Make me laugh or cry!" ></textarea>
-      <button type="submit" class="submit-btn">Shoot Your Message 🚀</button>
-    </form>
-  </section>
-</main>
-
-<section id="game">
-  <h2>Click-the-Circle Madness!</h2>
-  <div id="timer">Time: 30 seconds (Don’t lose your mind!)</div>
-  <div id="scoreboard">Score: 0</div>
-  <div id="circle" title="Click me if you dare!"></div>
-  <button id="startGameBtn" class="fun-fact-btn" style="margin-top: 10px;">Start the Chaos!</button>
-  <p style="color:#777; margin-top:1rem;">Click the circle as many times as you can before it mocks you by disappearing!</p>
+<!-- New AI Joke Section -->
+<section>
+  <h2 class="section-title">AI Joke Generator (Laugh at Your Own Risk)</h2>
+  <button class="fun-fact-btn" id="jokeBtn">Tell me a joke!</button>
+  <div id="aiJoke"></div>
 </section>
 
-<footer>
-  &copy; 2025 Aditya Gadre. All rights reserved. No AI were harmed in the making of this website.
-</footer>
+<!-- [keep the #game section and footer...] -->
 
 <script>
-  const funFactBtn = document.getElementById('funFactBtn');
-  const funFactDiv = document.getElementById('funFact');
-  const facts = [
-    "AI once beat a human at chess, then immediately forgot where it put its keys.",
-    "ChatGPT can write poems, but don’t ask it to do your laundry.",
-    "The first AI program was named the 'Logic Theorist.' Sounds like a supervillain.",
-    "Sometimes, I wonder if AI is just pretending to be smart to fit in.",
-    "If ChatGPT had a Bollywood dance number, it’d be a hit!"
+  // Existing scripts...
+
+  // Dark Mode Toggle
+  const toggleModeBtn = document.getElementById('toggleMode');
+  toggleModeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+  });
+
+  // AI Joke Generator
+  const jokes = [
+    "Why did the neural network break up with the decision tree? It found someone deeper!",
+    "I asked my AI assistant to tell me a joke. It replied: 'I’m laughing... internally.'",
+    "Why did the AI cross the road? Because it was trained on millions of chickens doing it!",
+    "ChatGPT walks into a bar... and instantly knows everyone's drink order.",
+    "My AI tried stand-up comedy. The crowd was speechless — literally, they were all bots."
   ];
 
-  funFactBtn.addEventListener('click', () => {
-    const fact = facts[Math.floor(Math.random() * facts.length)];
-    funFactDiv.style.opacity = 0;
-    setTimeout(() => {
-      funFactDiv.textContent = fact;
-      funFactDiv.style.opacity = 1;
-    }, 300);
-  });
+  const jokeBtn = document.getElementById('jokeBtn');
+  const aiJokeDiv = document.getElementById('aiJoke');
 
-  const contactForm = document.getElementById('contactForm');
-  contactForm.addEventListener('submit', e => {
-    e.preventDefault();
-    alert(`Thanks, ${contactForm.name.value}! Your message has been sent — I’ll get back to you faster than ChatGPT responds!`);
-    contactForm.reset();
-  });
-
-  const circle = document.getElementById('circle');
-  const scoreBoard = document.getElementById('scoreboard');
-  const timerDisplay = document.getElementById('timer');
-  const startBtn = document.getElementById('startGameBtn');
-
-  let score = 0;
-  let timeLeft = 30;
-  let countdownInterval;
-
-  function randomPosition() {
-    const container = document.getElementById('game');
-    const maxX = container.clientWidth - circle.offsetWidth;
-    const maxY = container.clientHeight - circle.offsetHeight - 80;
-    const x = Math.floor(Math.random() * maxX);
-    const y = Math.floor(Math.random() * maxY);
-    circle.style.transform = `translate(${x}px, ${y}px)`;
-  }
-
-  function startGame() {
-    score = 0;
-    timeLeft = 30;
-    scoreBoard.textContent = `Score: ${score}`;
-    timerDisplay.textContent = `Time: ${timeLeft} seconds (Beat me if you can!)`;
-    circle.style.display = 'block';
-    startBtn.disabled = true;
-
-    randomPosition();
-
-    circle.onclick = () => {
-      score++;
-      scoreBoard.textContent = `Score: ${score} (Wow, you got me!)`;
-      randomPosition();
-    };
-
-    countdownInterval = setInterval(() => {
-      timeLeft--;
-      timerDisplay.textContent = `Time: ${timeLeft} seconds (Hurry up!)`;
-      if (timeLeft <= 0) {
-        clearInterval(countdownInterval);
-        circle.style.display = 'none';
-        startBtn.disabled = false;
-        alert(`Game over! You scored ${score}. Not bad for a human!`);
-      }
-    }, 1000);
-  }
-
-  startBtn.addEventListener('click', startGame);
-
-  document.getElementById('india').addEventListener('click', () => {
-    alert("You clicked the title! Now you’re officially part of the fun club 🎉");
+  jokeBtn.addEventListener('click', () => {
+    const joke = jokes[Math.floor(Math.random() * jokes.length)];
+    aiJokeDiv.textContent = joke;
   });
 </script>
 
